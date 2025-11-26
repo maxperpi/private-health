@@ -23,12 +23,16 @@ import type {
 export interface FHEPrivateHealthInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "confidentialProtocolId"
       | "getEncryptedHealthData"
       | "hasSubmitted"
-      | "protocolId"
       | "submitHealthSurvey"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "confidentialProtocolId",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "getEncryptedHealthData",
     values: [AddressLike]
@@ -36,10 +40,6 @@ export interface FHEPrivateHealthInterface extends Interface {
   encodeFunctionData(
     functionFragment: "hasSubmitted",
     values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "protocolId",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "submitHealthSurvey",
@@ -47,6 +47,10 @@ export interface FHEPrivateHealthInterface extends Interface {
   ): string;
 
   decodeFunctionResult(
+    functionFragment: "confidentialProtocolId",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getEncryptedHealthData",
     data: BytesLike
   ): Result;
@@ -54,7 +58,6 @@ export interface FHEPrivateHealthInterface extends Interface {
     functionFragment: "hasSubmitted",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "protocolId", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "submitHealthSurvey",
     data: BytesLike
@@ -104,6 +107,8 @@ export interface FHEPrivateHealth extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  confidentialProtocolId: TypedContractMethod<[], [bigint], "view">;
+
   getEncryptedHealthData: TypedContractMethod<
     [participant: AddressLike],
     [string],
@@ -116,8 +121,6 @@ export interface FHEPrivateHealth extends BaseContract {
     "view"
   >;
 
-  protocolId: TypedContractMethod<[], [bigint], "view">;
-
   submitHealthSurvey: TypedContractMethod<
     [encryptedInput: BytesLike, zkProof: BytesLike],
     [void],
@@ -129,14 +132,14 @@ export interface FHEPrivateHealth extends BaseContract {
   ): T;
 
   getFunction(
+    nameOrSignature: "confidentialProtocolId"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "getEncryptedHealthData"
   ): TypedContractMethod<[participant: AddressLike], [string], "view">;
   getFunction(
     nameOrSignature: "hasSubmitted"
   ): TypedContractMethod<[participant: AddressLike], [boolean], "view">;
-  getFunction(
-    nameOrSignature: "protocolId"
-  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "submitHealthSurvey"
   ): TypedContractMethod<

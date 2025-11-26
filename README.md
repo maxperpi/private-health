@@ -1,19 +1,49 @@
-# FHEVM React Template
+# FHE Private Health — Fully Encrypted Health Survey
 
-A minimal React frontend template for building FHEVM-enabled decentralized applications (dApps). This template provides a simple development interface for interacting with FHEVM smart contracts, specifically the `FHECounter.sol` contract.
+This project is a **Fully Homomorphic Encryption (FHE) dApp** that allows users to submit a 5-question health survey.  
+All answers are **fully encrypted** on the client side using FHE before being sent to the smart contract, ensuring that **no one (not even the contract owner)** can read the data.
 
-## 🚀 What is FHEVM?
+---
 
-FHEVM (Fully Homomorphic Encryption Virtual Machine) enables computation on encrypted data directly on Ethereum. This template demonstrates how to build dApps that can perform computations while keeping data private.
+## 🚀 Features
 
-## ✨ Features
+- 🔐 **End-to-end encryption with FHE** — answers are encrypted before leaving the browser  
+- 🏥 **Five health metrics**:
+  - Heart Rate  
+  - Blood Pressure  
+  - Blood Sugar  
+  - Cholesterol  
+  - Body Temperature  
+- 🌐 Wallet connection via **wagmi** + **RainbowKit**  
+- 🎨 Modern UI with gradients, icons, and smooth UX  
 
-- **🔐 FHEVM Integration**: Built-in support for fully homomorphic encryption
-- **⚛️ React + Next.js**: Modern, performant frontend framework
-- **🎨 Tailwind CSS**: Utility-first styling for rapid UI development
-- **🔗 RainbowKit**: Seamless wallet connection and management
-- **🌐 Multi-Network Support**: Works on both Sepolia testnet and local Hardhat node
-- **📦 Monorepo Structure**: Organized packages for SDK, contracts, and frontend
+---
+
+## 📦 Tech Stack
+
+- **Next.js / React**
+- **FHEVM SDK (`@fhevm-sdk`)**
+- **wagmi + RainbowKit**
+- **lucide-react** for icons
+- TailwindCSS
+
+---
+
+## 📁 File Overview
+
+This component:
+
+- Submits the encrypted value to the FHE smart contract  
+- Allows users to decrypt the stored encrypted answer  
+- Displays a human-readable health outcome
+
+Main functions included:
+
+- `mapAnswersToIndex()` → converts responses to 1..1024  
+- `mapIndexToOutcome()` → retrieves human-readable text  
+- Full UI to select answers, submit, decrypt, and show results  
+
+---
 
 ## 📋 Prerequinextjss
 
@@ -31,7 +61,7 @@ Before you begin, ensure you have:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd fhevm-react-template
+cd private-health
 
 # Initialize submodules (includes fhevm-hardhat-template)
 git submodule update --init --recursive
@@ -124,7 +154,7 @@ For more details, see the [MetaMask development guide](https://docs.metamask.io/
 This template uses a monorepo structure with three main packages:
 
 ```
-fhevm-react-template/
+private-health/
 ├── packages/
 │   ├── fhevm-hardhat-template/    # Smart contracts & deployment
 │   ├── fhevm-sdk/                 # FHEVM SDK package
@@ -134,8 +164,8 @@ fhevm-react-template/
 
 ### Key Components
 
-#### 🔗 FHEVM Integration (`packages/nextjs/hooks/fhecounter-example/`)
-- **`useFHECounterWagmi.tsx`**: Example hook demonstrating FHEVM contract interaction
+#### 🔗 FHEVM Integration (`packages/nextjs/hooks/`)
+- **`usePrivateHealth.ts`**: Example hook demonstrating FHEVM contract interaction
 - Essential hooks for FHEVM-enabled smart contract communication
 - Easily copyable to any FHEVM + React project
 

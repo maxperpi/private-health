@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 import {FHE, euint32, externalEuint32} from "@fhevm/solidity/lib/FHE.sol";
-import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
+import {ZamaEthereumConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 
 /**
  * @title FHEPrivateHealth
@@ -10,7 +10,7 @@ import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
  *         using Fully Homomorphic Encryption (FHE). Each participant may
  *         submit exactly once, and answers are stored encrypted.
  */
-contract FHEPrivateHealth is SepoliaConfig {
+contract FHEPrivateHealth is ZamaEthereumConfig {
     /// @dev Maps participant addresses to their encrypted responses
     mapping(address => euint32) private encryptedResponses;
 
